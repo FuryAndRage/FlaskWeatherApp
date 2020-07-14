@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, request
 import requests
 from secret import secret_api_key
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 
 def get_api():
