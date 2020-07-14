@@ -24,4 +24,4 @@ def home():
 	return render_template('index.html', res = get_api())
 
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True)

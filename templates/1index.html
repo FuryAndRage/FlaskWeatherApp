@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flask Weather App</title>
+	<meta name="viewport" content="width = device-width, initial-scale = 1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+
+<style>
+    .weather
+    {
+        display: flex;
+        flex-flow: column wrap;
+        box-shadow: 0px 1px 10px 0px #cfcfcf;
+        overflow: hidden;
+    }
+
+        .weather .current
+        {
+            display: flex;
+            flex-flow: row wrap;
+            background-image: url("/Content/images/shared/misc/london-view.png");
+            background-repeat: repeat-x;
+            color: white;
+            padding: 20px;
+            text-shadow: 1px 1px #F68D2E;
+        }
+
+            .weather .current .info
+            {
+                display: flex;
+                flex-flow: column wrap;
+                justify-content: space-around;
+                flex-grow: 2;
+            }
+
+                .weather .current .info .city
+                {
+                    font-size: 26px;
+                }
+
+                .weather .current .info .temp
+                {
+                    font-size: 56px;
+                }
+
+                .weather .current .info .wind
+                {
+                    font-size: 24px;
+                }
+
+            .weather .current .icon
+            {
+                text-align: center;
+                font-size: 64px;
+                flex-grow: 1;
+            }
+
+        .weather .future
+        {
+            display: flex;
+            flex-flow: row nowrap;
+        }
+
+            .weather .future .day
+            {
+                flex-grow: 1;
+                text-align: center;
+                cursor: pointer;
+            }
+
+                .weather .future .day:hover
+                {
+                    color: #fff;
+                    background-color: #F68D2E;
+                }
+
+                .weather .future .day h3
+                {
+                    text-transform: uppercase;
+                }
+
+                .weather .future .day p
+                {
+                    font-size: 28px;
+                }
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="weather text-center">
+					<div class="current">
+						<div class="info">
+							<div>&nbsp;</div>
+							<div class="city"><small><small>CITY:</small></small> {{res[11]}} - {{res[8]['country']}}</div>
+							<div class="temp">67&deg; <small>F</small></div>
+							<div class="wind"><small><small>WIND:</small></small> 22 km/h</div>
+							<div>&nbsp;</div>
+						</div>
+						<div class="icon">
+							<span class="wi-day-sunny"><img src="http://openweathermap.org/img/wn/{{res[1][0]['icon']}}@2x.png" style="height: 200px;width:200px"></span>
+						</div>
+					</div>
+				   
+				</div>
+			</div>
+		</div>
+	</div>
+{{res}}
+{{res[8]['country']}}
+<link rel="stylesheet" type="text/css" href="/Content/css/weather-icons/css/weather-icons.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+</body>
+</html>
+
+
+
+
+
