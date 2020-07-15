@@ -11,9 +11,10 @@ def get_api():
 	url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}'
 	req = requests.get(url)
 	res = []
-	for item in req.json().values():
-		res.append(item)
-	print(res[1][0]['icon'])
+	for chave, valor in req.json().items():
+		res.append({chave: valor})
+	
+	print(res[3]['main']['temp'])
 	return res
 
 	# print({chave:valor for (chave, valor) in req_json.items()})
