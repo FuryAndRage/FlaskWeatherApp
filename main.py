@@ -16,7 +16,6 @@ def get_api():
 	#(32 °F − 32) × 5/9 = 0 °C
 	
 	temp = int(300 - res[3]['main']['temp'])
-	print(temp)
 	return res
 
 def convert_time():
@@ -24,8 +23,10 @@ def convert_time():
 	timestamp = ''
 	if len(res) == 14:
 		timestamp = datetime.datetime.fromtimestamp(res[8]['dt'])
-	if len(res) == 13:
+	elif len(res) == 13:
 		timestamp = datetime.datetime.fromtimestamp(res[7]['dt'])
+	else:
+		timestamp = datetime.datetime.fromtimestamp(res[6]['dt'])
 	date_time = timestamp.strftime('%d/%m/%Y')
 	time_time = timestamp.strftime('%H:%M:%S')
 	time = {'date': date_time, 'time':time_time}
@@ -33,11 +34,13 @@ def convert_time():
 
 	# print({chave:valor for (chave, valor) in req_json.items()})
 
-@app.route('/')
+@app.route('/', methods=['POST','GET'])
 def home():
-	
+	lat = request.form.get('lat')
+	lon = request.form.get('lon')
+	print(lon, lat)
 	res = get_api()
-	
+	print(len(res))
 	current_temp = int(res[3]['main']['temp'] - 273.15 )
 	feel = int(res[3]['main']['feels_like'] - 273.15)
 	temp_min = int(res[3]['main']['temp_min'] - 273.15)
@@ -47,3 +50,6 @@ def home():
 
 if __name__ == '__main__':
 	app.run(debug=True)
+
+
+#api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={your api key}

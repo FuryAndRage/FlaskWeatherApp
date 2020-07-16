@@ -58,7 +58,10 @@
 						<input type="text" placeholder="Find your location...">
 						<input type="submit" value="Find">
 					</form>
-
+					<form>
+						<input hidden type="text" name="lat" id="lat" value="">
+						<input hidden type="text" name="lon" id="lon" value="">
+					</form>
 				</div>
             </div>
            
@@ -193,6 +196,46 @@
         
 		<script src="{{url_for('static', filename='js/plugins.js')}}"></script>
 		<script src="{{url_for('static', filename='js/app.js')}}"></script>
+		<script>
+			var lon = document.getElementById("lon");
+			var lat = document.getElementById("lat");
+			function getLocation()
+			{
+			if (navigator.geolocation)
+				{
+					navigator.geolocation.getCurrentPosition(showPosition,showError);
+				}
+			else{x.innerHTML="Seu browser não suporta Geolocalização.";}
+			}
+			function showPosition(position){
+				//lat.innerHTML = position.coords.latitude
+				document.querySelector("[name='lat']").innerHTML = position.coords.latitude
+				document.querySelector("#lon").value = position.coords.longitude
+				// lon.innerHTML = position.coords.longitude;
+				console.log(lat, lon)  
+			}
+			function showError(error)
+			{
+			switch(error.code) 
+				{
+				case error.PERMISSION_DENIED:
+				x.innerHTML="Usuário rejeitou a solicitação de Geolocalização."
+				break;
+				case error.POSITION_UNAVAILABLE:
+				x.innerHTML="Localização indisponível."
+				break;
+				case error.TIMEOUT:
+				x.innerHTML="A requisição expirou."
+				break;
+				case error.UNKNOWN_ERROR:
+				x.innerHTML="Algum erro desconhecido aconteceu."
+				break;
+				}
+			}
+			window.onload=function(){
+				getLocation()
+			}	
+		</script>
 		
 	</body>
 
