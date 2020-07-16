@@ -13,9 +13,15 @@ def get_api():
 	res = []
 	for chave, valor in req.json().items():
 		res.append({chave: valor})
-	#(32 °F − 32) × 5/9 = 0 °C
-	
-	temp = int(300 - res[3]['main']['temp'])
+	return res
+def get_api_byloc(lat,lon):
+	city = 'Auckland'
+	api_key = secret_api_key()
+	url = f'api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}'
+	req = requests.get(url)
+	res = []
+	for chave, valor in req.json().items():
+		res.append({chave: valor})
 	return res
 
 def convert_time():
@@ -36,10 +42,16 @@ def convert_time():
 
 @app.route('/', methods=['POST','GET'])
 def home():
+	res = get_api()
 	lat = request.form.get('lat')
 	lon = request.form.get('lon')
-	print(lon, lat)
-	res = get_api()
+
+	if request.method == 'POST':
+		lat = request.form.get('lat')
+		lon = request.form.get('lon')
+		print(lon, lat)
+		res = get_api_byloc(lat,lon)
+	
 	print(len(res))
 	current_temp = int(res[3]['main']['temp'] - 273.15 )
 	feel = int(res[3]['main']['feels_like'] - 273.15)

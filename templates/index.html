@@ -54,14 +54,17 @@
 
 			<div class="hero" data-bg-image="images/banner.png">
 				<div class="container">
-					<form action="#" class="find-location">
-						<input type="text" placeholder="Find your location...">
-						<input type="submit" value="Find">
-					</form>
-					<form>
+					<form method="post" style="display:flex; justify-content: center;">
 						<input hidden type="text" name="lat" id="lat" value="">
 						<input hidden type="text" name="lon" id="lon" value="">
+						
+						<input type="submit" value="Get my location">
 					</form>
+					<form action="#" class="find-location">
+						<input type="text" placeholder="Find your location...">
+						<input type="submit" value="Find" onclick="get_location()">
+					</form>
+					
 				</div>
             </div>
            
@@ -75,7 +78,7 @@
 								<div class="date">{{temp.time.time}}</div>
 							</div> <!-- .forecast-header -->
 							<div class="forecast-content" >
-								<div class="location">{{res[12]['name']}}</div>
+								<div class="location">{%if res | length == 14%}{{res[12]['name']}}{%else%}{{res[11]['name']}}{%endif%}</div>
 								<div class="degree">
 									
 									<div class="num">{{temp.current}}<sup>o</sup>C</div>
@@ -118,7 +121,7 @@
 						</div>
 						<div class="forecast">
 							<div class="forecast-header">
-								<div class="day">Thursday</div>
+								<div class="day">Max</div>
 							</div> <!-- .forecast-header -->
 							<div class="forecast-content">
 								<div class="forecast-icon">
@@ -205,12 +208,15 @@
 				{
 					navigator.geolocation.getCurrentPosition(showPosition,showError);
 				}
-			else{x.innerHTML="Seu browser não suporta Geolocalização.";}
+			else{lat.innerHTML="Seu browser não suporta Geolocalização.";}
 			}
 			function showPosition(position){
 				//lat.innerHTML = position.coords.latitude
 				document.querySelector("[name='lat']").innerHTML = position.coords.latitude
-				document.querySelector("#lon").value = position.coords.longitude
+				document.querySelector("[name='lon']").innerHTML = position.coords.longitude
+				document.querySelector("[name='lon']").setAttribute('value',position.coords.longitude)
+				document.querySelector("[name='lat']").setAttribute('value',position.coords.latitude)
+				lon.value = position.coords.longitude
 				// lon.innerHTML = position.coords.longitude;
 				console.log(lat, lon)  
 			}
@@ -219,16 +225,16 @@
 			switch(error.code) 
 				{
 				case error.PERMISSION_DENIED:
-				x.innerHTML="Usuário rejeitou a solicitação de Geolocalização."
+				lat.innerHTML="Usuário rejeitou a solicitação de Geolocalização."
 				break;
 				case error.POSITION_UNAVAILABLE:
-				x.innerHTML="Localização indisponível."
+				lat.innerHTML="Localização indisponível."
 				break;
 				case error.TIMEOUT:
-				x.innerHTML="A requisição expirou."
+				lat.innerHTML="A requisição expirou."
 				break;
 				case error.UNKNOWN_ERROR:
-				x.innerHTML="Algum erro desconhecido aconteceu."
+				lat.innerHTML="Algum erro desconhecido aconteceu."
 				break;
 				}
 			}
