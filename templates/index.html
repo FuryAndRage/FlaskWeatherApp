@@ -83,7 +83,8 @@
 									</div>
 								</div>
 							
-								<span><img src="{{url_for('static',filename = 'images/icon-umberella.png')}}" alt="">{{res[7]['clouds']['all']}}%</span>
+								<span><img src="{{url_for('static',filename = 'images/icon-umberella.png')}}" alt="">{%if res | length == 14%}
+									{{res[7]['clouds']['all']}}{%else%}{{res[6]['clouds']['all']}}{%endif%}</span>
 								<span><img src="{{url_for('static',filename = 'images/icon-wind.png')}}" alt="">1{{res[5]['wind']['speed']}}km/h</span>
 								<span><img src="images/icon-compass.png" alt="">East</span>
 							</div>

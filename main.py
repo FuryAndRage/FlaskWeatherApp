@@ -21,7 +21,11 @@ def get_api():
 
 def convert_time():
 	res = get_api()
-	timestamp = datetime.datetime.fromtimestamp(res[8]['dt'])
+	timestamp = ''
+	if len(res) == 14:
+		timestamp = datetime.datetime.fromtimestamp(res[8]['dt'])
+	if len(res) == 13:
+		timestamp = datetime.datetime.fromtimestamp(res[7]['dt'])
 	date_time = timestamp.strftime('%d/%m/%Y')
 	time_time = timestamp.strftime('%H:%M:%S')
 	time = {'date': date_time, 'time':time_time}
@@ -31,7 +35,9 @@ def convert_time():
 
 @app.route('/')
 def home():
+	
 	res = get_api()
+	
 	current_temp = int(res[3]['main']['temp'] - 273.15 )
 	feel = int(res[3]['main']['feels_like'] - 273.15)
 	temp_min = int(res[3]['main']['temp_min'] - 273.15)
