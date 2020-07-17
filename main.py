@@ -18,7 +18,6 @@ def get_api():
 
 
 def get_api_byloc(lat,lon):
-	city = 'Auckland'
 	api_key = secret_api_key()
 	url = f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}'
 	req = requests.get(url)

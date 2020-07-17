@@ -52,17 +52,17 @@
 				</div>
 			</div> <!-- .site-header -->
 
-			<div class="hero" data-bg-image="images/banner.png">
+			<div class="hero" data-bg-image="{{url_for('static', filename='images/banner.png')}}">
 				<div class="container">
 					<form method="post" style="display:flex; justify-content: center;">
 						<input hidden type="text" name="lat" id="lat" value="">
 						<input hidden type="text" name="lon" id="lon" value="">
 						
-						<input type="submit" value="Get my location">
+						<input type="submit" value="Get my location" onclick="get_location()"">
 					</form>
-					<form action="#" class="find-location">
-						<input type="text" placeholder="Find your location...">
-						<input type="submit" value="Find" onclick="get_location()">
+					<form action="#" method="post" class="find-location">
+						<input type="text" name="loc" id="loc" placeholder="Find your location...">
+						<input type="submit" value="Find" >
 					</form>
 					
 				</div>
